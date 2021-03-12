@@ -40,7 +40,7 @@
 
         .container {
             display: grid;
-            grid-template-columns: 0.7fr 1fr 1fr;
+            grid-template-columns: 0.6fr 1fr 1fr;
             grid-template-rows: 70px 500px;
             gap: 7px;
         }
@@ -86,13 +86,13 @@
 
         #commands {
             display: grid;
-            grid-template-columns: auto 1fr 1fr;
+            grid-template-columns: auto;
             grid-template-rows: repeat(6, 20px);
             gap: 7px;
         }
 
         #commands > header {
-            grid-column: 1 / 4;
+            grid-column: 1 / 2;
             grid-row: 1;
 
             display: flex;
@@ -105,19 +105,36 @@
             padding: 10px;
             background-color: rgb(207,232,220);
             border: 2px solid rgb(79,185,227);
+        }
+
+        #commands > .command-field {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 13px;
+
+            padding: 10px;
+            background-color: rgb(207,232,220);
+        }
+
+        .command-field-input-box {
+            background-color: rgb(223, 223, 223);
         }
 
 
 
         #controls {
             display: grid;
-            grid-template-columns: auto 1fr 1fr;
-            grid-template-rows: repeat(6, 20px);
-            gap: 7px;
+            grid-template-columns: 100%;
+            grid-template-rows: 20px repeat(3, 50px);
+            gap: 20px;
+
+            justify-items: center;
         }
 
         #controls > header {
-            grid-column: 1 / 4;
+            grid-column: 1 / 2;
             grid-row: 1;
 
             display: flex;
@@ -130,7 +147,40 @@
             padding: 10px;
             background-color: rgb(207,232,220);
             border: 2px solid rgb(79,185,227);
+            width: 100%;
+            box-sizing: border-box;
         }
+
+        #controls > .control-button {
+            grid-column: 1 / 2;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 5px;
+            border: 3px solid rgb(43, 43, 43);
+            width: 50%;
+
+            background-color: rgb(223, 223, 223);
+
+            user-select: none;
+        }
+
+        #controls > .control-button:active {
+            box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+        }
+
+
+
+        .register-input-box {
+            background-color: transparent;
+            border: none;
+
+            text-align: center;
+            width: 20px;
+        }
+
     </style>
 </head>
 
@@ -146,28 +196,69 @@
             <div class="register-name">L</div>
 
             <div class="register-name">AX</div>
-            <div class="register-value" id="ax-h">00</div>
-            <div class="register-value" id="ax-l">00</div>
+            
+            <div class="register-value" id="axh">
+                <input type="text" class="register-input-box" minlength="2" maxlength="2"  autocomplete="off" spellcheck="false" value="00">
+            </div>
+            <div class="register-value" id="axl">
+                <input type="text" class="register-input-box" minlength="2" maxlength="2"  autocomplete="off" spellcheck="false" value="00">
+            </div>
 
             <div class="register-name">BX</div>
-            <div class="register-value" id="bx-h">00</div>
-            <div class="register-value" id="bx-l">00</div>
+
+            <div class="register-value" id="bxh">
+                <input type="text" class="register-input-box" minlength="2" maxlength="2"  autocomplete="off" spellcheck="false" value="00">
+            </div>
+            <div class="register-value" id="bxl">
+                <input type="text" class="register-input-box" minlength="2" maxlength="2"  autocomplete="off" spellcheck="false" value="00">
+            </div>
 
             <div class="register-name">CX</div>
-            <div class="register-value" id="cx-h">00</div>
-            <div class="register-value" id="cx-l">00</div>
+
+            <div class="register-value" id="cxh">
+                <input type="text" class="register-input-box" minlength="2" maxlength="2"  autocomplete="off" spellcheck="false" value="00">
+            </div>
+            <div class="register-value" id="cxl">
+                <input type="text" class="register-input-box" minlength="2" maxlength="2"  autocomplete="off" spellcheck="false" value="00">
+            </div>
 
             <div class="register-name">DX</div>
-            <div class="register-value" id="dx-h">00</div>
-            <div class="register-value" id="dx-l">00</div>
+
+            <div class="register-value" id="dxh">
+                <input type="text" class="register-input-box" minlength="2" maxlength="2"  autocomplete="off" spellcheck="false" value="00">
+            </div>
+            <div class="register-value" id="dxl">
+                <input type="text" class="register-input-box" minlength="2" maxlength="2"  autocomplete="off" spellcheck="false" value="00">
+            </div>
         </div>
 
         <div id="commands">
             <header>Commands</header>
+            <div></div>
+
+            <div class="command-field">
+                <input type="text" class="command-field-input-box" id="command1" maxlength="64" size="30%" autocomplete="off" spellcheck="false">
+            </div>
+            
+            <div class="command-field">
+                <input type="text" class="command-field-input-box" id="command2" maxlength="64" size="30%" autocomplete="off" spellcheck="false">
+            </div>
+
+            <div class="command-field">
+                <input type="text" class="command-field-input-box" id="command3" maxlength="64" size="30%" autocomplete="off" spellcheck="false">
+            </div>
+
+            <div class="command-field">
+                <input type="text" class="command-field-input-box" id="command3" maxlength="64" size="30%" autocomplete="off" spellcheck="false">
+            </div>
         </div>
 
         <div id="controls">
             <header>Controls</header>
+
+            <div class="control-button" id="singleStepButton">single step</div>
+            <div class="control-button" id="runButton">run</div>
+            <div class="control-button" id="stepBackButton">step back</div>
         </div>
     </div>
 
