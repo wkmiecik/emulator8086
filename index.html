@@ -5,8 +5,172 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emulator 8086</title>
+
+    <style>
+        body {
+            width: 90%;
+            max-width: 900px;
+            margin: 2em auto;
+            font: .9em/1.2 Arial, Helvetica, sans-serif;
+            background-color: rgb(35, 37, 36);
+        }
+
+        .container > header {
+            grid-column: 1 / 4;
+            grid-row: 1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 50px;
+
+            border-radius: 5px;
+            padding: 10px;
+            background-color: rgb(207,232,220);
+            border: 2px solid rgb(79,185,227);
+        }
+
+        .container > div {
+            border-radius: 5px;
+            padding: 10px;
+            background-color: rgb(207,232,220);
+            border: 2px solid rgb(79,185,227);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 0.7fr 1fr 1fr;
+            grid-template-rows: 70px 500px;
+            gap: 7px;
+        }
+
+
+
+        #registers {
+            display: grid;
+            grid-template-columns: auto 1fr 1fr;
+            grid-template-rows: repeat(6, 20px);
+            gap: 7px;
+        }
+
+        #registers > .register-name {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #registers > .register-value {
+            border: 1px solid rgb(79,185,227);
+            text-align: center;
+        }
+
+        #registers > header {
+            grid-column: 1 / 4;
+            grid-row: 1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 13px;
+
+            border-radius: 5px;
+            padding: 10px;
+            background-color: rgb(207,232,220);
+            border: 2px solid rgb(79,185,227);
+        }
+
+
+
+        #commands {
+            display: grid;
+            grid-template-columns: auto 1fr 1fr;
+            grid-template-rows: repeat(6, 20px);
+            gap: 7px;
+        }
+
+        #commands > header {
+            grid-column: 1 / 4;
+            grid-row: 1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 13px;
+
+            border-radius: 5px;
+            padding: 10px;
+            background-color: rgb(207,232,220);
+            border: 2px solid rgb(79,185,227);
+        }
+
+
+
+        #controls {
+            display: grid;
+            grid-template-columns: auto 1fr 1fr;
+            grid-template-rows: repeat(6, 20px);
+            gap: 7px;
+        }
+
+        #controls > header {
+            grid-column: 1 / 4;
+            grid-row: 1;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 13px;
+
+            border-radius: 5px;
+            padding: 10px;
+            background-color: rgb(207,232,220);
+            border: 2px solid rgb(79,185,227);
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div class="container">
+        <header>8086 Emulator</header>
+
+        <div id="registers">
+            <header>Registers</header>
+
+            <div></div>
+            <div class="register-name">H</div>
+            <div class="register-name">L</div>
+
+            <div class="register-name">AX</div>
+            <div class="register-value" id="ax-h">00</div>
+            <div class="register-value" id="ax-l">00</div>
+
+            <div class="register-name">BX</div>
+            <div class="register-value" id="bx-h">00</div>
+            <div class="register-value" id="bx-l">00</div>
+
+            <div class="register-name">CX</div>
+            <div class="register-value" id="cx-h">00</div>
+            <div class="register-value" id="cx-l">00</div>
+
+            <div class="register-name">DX</div>
+            <div class="register-value" id="dx-h">00</div>
+            <div class="register-value" id="dx-l">00</div>
+        </div>
+
+        <div id="commands">
+            <header>Commands</header>
+        </div>
+
+        <div id="controls">
+            <header>Controls</header>
+        </div>
+    </div>
+
 </body>
+
 </html>
