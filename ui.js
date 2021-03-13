@@ -1,22 +1,6 @@
-// Register elements
-const ah = document.getElementById("ah");
-const al = document.getElementById("al");
-
-const bh = document.getElementById("bh");
-const bl = document.getElementById("bl");
-
-const ch = document.getElementById("ch");
-const cl = document.getElementById("cl");
-
-const dh = document.getElementById("dh");
-const dl = document.getElementById("dl");
-
-// Commands container element
-const commandsContainer = document.getElementById("commands");
-
-// List of all commands
-let commands = [];
-let init = true;
+// Add event listeners to control buttons
+nextStepButton.addEventListener('click', nextStep);
+backStepButton.addEventListener('click', backStep);
 
 function newCommandField(index) {
     field = document.createElement("div");
@@ -30,9 +14,10 @@ function newCommandField(index) {
     input.setAttribute("size","30%");
     input.setAttribute("autocomplete","off");
     input.setAttribute("spellcheck","false");
+    if (init) input.style.backgroundColor = "rgb(144, 238, 144)";
 
     field.append(input);
-    if(init) {
+    if (init) {
         commandsContainer.append(field);
     } else {
         field.appendAfter(commands[index].parentNode);

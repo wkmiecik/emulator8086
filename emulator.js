@@ -1,13 +1,13 @@
-function nextStep() {
-
+function nextStep(event) {
+    
 }
 
-function previousStep() {
+function backStep(event) {
 
 }
 
 function executeCommand(command) {
-
+    
 }
 
 function setRegister(register, value) {
@@ -23,4 +23,4 @@ function setRegister(register, value) {
 
 
 // Start
-setRegister(ah, 12);
+setRegister(dl, 12);
