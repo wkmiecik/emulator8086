@@ -97,21 +97,9 @@ function deleteCommandField(index) {
 
 Element.prototype.appendAfter = function (element) {
     element.parentNode.insertBefore(this, element.nextSibling);
-  },false;
-
-function setRegister(register, value) {
-    value = value.toString();
-    
-    if(value.length == 1) {
-        value = ("0").concat(value);
-    } else {
-        value = value.slice(-2);
-    }
-    register.value = value;
-}
+},false;
 
 
 // Start
-setRegister(ah, 12);
 newCommandField(0);
 init = false;
