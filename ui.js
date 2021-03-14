@@ -1,6 +1,6 @@
 // Add event listeners to control buttons
 nextStepButton.addEventListener('click', nextStep);
-backStepButton.addEventListener('click', backStep);
+//backStepButton.addEventListener('click', backStep);
 
 function newCommandField(index) {
     field = document.createElement("div");
