@@ -84,6 +84,13 @@ Element.prototype.appendAfter = function (element) {
     element.parentNode.insertBefore(this, element.nextSibling);
 },false;
 
+function setCurrentCommand(command) {
+    for (com of commands) {
+        com.style.backgroundColor = "rgb(223, 223, 223)";
+    }
+    command.style.backgroundColor = "rgb(144, 238, 144)";
+}
+
 
 // Start
 newCommandField(0);

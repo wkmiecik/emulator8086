@@ -7,7 +7,11 @@ const registers = {
     "ch": document.getElementById("ch"),
     "cl": document.getElementById("cl"),
     "dh": document.getElementById("dh"),
-    "dl": document.getElementById("dl")
+    "dl": document.getElementById("dl"),
+    "ax": document.getElementById("al"),
+    "bx": document.getElementById("bl"),
+    "cx": document.getElementById("cl"),
+    "dx": document.getElementById("dl")
 }
 
 // Commands container element
