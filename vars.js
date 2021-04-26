@@ -8,10 +8,21 @@ const registers = {
     "cl": document.getElementById("cl"),
     "dh": document.getElementById("dh"),
     "dl": document.getElementById("dl"),
+
     "ax": document.getElementById("al"),
     "bx": document.getElementById("bl"),
     "cx": document.getElementById("cl"),
-    "dx": document.getElementById("dl")
+    "dx": document.getElementById("dl"),
+
+    "bp": document.getElementById("bp"),
+    "si": document.getElementById("si"),
+    "di": document.getElementById("di"),
+    "sp": document.getElementById("sp")
+}
+
+// Memory
+var memory = {
+    
 }
 
 // Commands container element

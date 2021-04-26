@@ -78,6 +78,8 @@ function deleteCommandField(index) {
             commands[i].setAttribute("id","command".concat(commandIndex));
         }
     }
+
+    setCurrentCommand(commands[commandPointer]);
 }
 
 Element.prototype.appendAfter = function (element) {
