@@ -17,8 +17,12 @@ const registers = {
     "bp": document.getElementById("bp"),
     "si": document.getElementById("si"),
     "di": document.getElementById("di"),
-    "sp": document.getElementById("sp")
+    "sp": document.getElementById("sp"),
+
+    "disp": document.getElementById("disp"),
 }
+
+var allRegInputs = document.querySelectorAll(".register-input-box,.register-input-box2");
 
 // Memory
 var memory = {

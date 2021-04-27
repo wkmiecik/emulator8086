@@ -41,7 +41,7 @@ body {
 .container {
     display: grid;
     grid-template-columns: 0.6fr 1fr 1fr;
-    grid-template-rows: 70px 300px 200px 200px;
+    grid-template-rows: 70px 318px 200px 200px;
     gap: 7px;
 }
 
@@ -51,7 +51,7 @@ body {
 #registers {
     display: grid;
     grid-template-columns: auto 1fr 1fr;
-    grid-template-rows: repeat(10, 20px);
+    grid-template-rows: repeat(14, 20px);
     gap: 7px;
 }
 
@@ -101,6 +101,10 @@ body {
 
     text-align: center;
     width: 40px;
+}
+
+.wrong {
+    background-color: rgba(233, 143, 143, 0.521);
 }
 
 

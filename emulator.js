@@ -1,4 +1,9 @@
 function executeButton(event) {
+    if (document.querySelectorAll(".wrong").length > 0) {
+        console.error("error: One or more registers have incorrect value");
+        return;
+    }
+
     let command = inputCommand.value;
     if (command == "") return;
 
@@ -15,6 +20,7 @@ function executeCommand(command) {
         return "no arguments given";
     } 
     arguments = arguments.replace(/\s+/g, '');
+    arguments = arguments.toLowerCase();
 
     let arg1;
     let arg2;
@@ -113,14 +119,16 @@ function setRegister(register, value) {
         // Argument is hex
         hexValue = value.slice(0, -1);
 
-        let onlyHexNumbers = /[^0-9a-f]+/g;
+        let onlyHexNumbers = /[^0-9a-fA-F]+/g;
         if (onlyHexNumbers.test(hexValue)) {
             return "Argument is incorrect value";
         }
     }
 
-    // Pad value with 0s if too short
+    // Pad value with 0s if too short and change to upper case
     hexValue = hexValue.padStart(registerSize, '0');
+    hexValue = hexValue.toUpperCase();
+
     // Check if value is not over register size
     if ((registerSize == 4 && hexValue.length > 4) || (registerSize == 2 && hexValue.length > 2)) {
         return "Argument over register size or incorrect argument";
