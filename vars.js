@@ -25,14 +25,8 @@ var memory = {
     
 }
 
-// Commands container element
-const commandsContainer = document.getElementById("commands");
-
-// List of all commands
-let commandPointer = 0;
-let commands = [];
-let init = true;
+// Commands
+const inputCommand = document.getElementById("command0");
 
 // Control elements
-const nextStepButton = document.getElementById("nextStepButton");
-//const backStepButton = document.getElementById("stepBackButton");
+const execButton = document.getElementById("execButton");
