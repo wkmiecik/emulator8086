@@ -99,6 +99,11 @@ function mov(arg1, arg2) {
     }
 }
 
+function setMemory(address, value) {
+    memory[address] = value;
+    viewMemoryFrom(address);
+}
+
 function setRegister(register, value) {
     let hexValue = "";
 

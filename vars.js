@@ -21,13 +21,21 @@ const registers = {
 
     "disp": document.getElementById("disp"),
 }
-
 var allRegInputs = document.querySelectorAll(".register-input-box,.register-input-box2");
 
 // Memory
 var memory = {
-    
+    "0000": "a1",
+    "0001": "ff",
+    "fa0f": "aa",
+    "fa30": "69",
 }
+var allMemInputs = document.querySelectorAll(".memory-input-box");
+
+var memName0 = document.getElementById("memory-name0");
+var memName1 = document.getElementById("memory-name1");
+var memName2 = document.getElementById("memory-name2");
+var memName3 = document.getElementById("memory-name3");
 
 // Commands
 const inputCommand = document.getElementById("command0");
