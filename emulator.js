@@ -80,6 +80,41 @@ function mov(arg1, arg2) {
         return "Instruction mov needs second argument";
     }
 
+
+
+    // Check if arg1 is memory location
+    if (arg1[0] == "[") {
+        let address = calcMemAddress(arg1);
+        if (address.length > 5) return address;
+
+        // Check if register arg2 exist and save it to memory
+        if ((arg2Size = getRegSize(arg2)) == undefined) {
+            return setMemory(address, arg2);
+        } else {
+            return setMemory(address, getRegValue(arg2));
+        }
+    }
+    // Check if arg2 is memory location
+    if (arg2[0] == "[") {
+        let address = calcMemAddress(arg2);
+        if (address.length > 5) return address;
+
+        // Check if register arg1 exist and save it's value from memory
+        if ((arg1Size = getRegSize(arg1)) == undefined) {
+            return "Wrong register name: " + arg1;
+        } else {
+            if (arg1Size == 2) {
+                return setRegister(arg1, getMemory(address) + "h");
+            } else {
+                let value = getMemory((parseInt(address, 16) + 1).toString(16).padStart(4, '0')) + getMemory(address) + "h";
+                return setRegister(arg1, value);
+            }
+        }
+    }
+
+
+
+
     // Check if register arg1 exist and save its size
     if ((arg1Size = getRegSize(arg1)) == undefined) {
         return "Wrong register name: " + arg1;
@@ -99,9 +134,72 @@ function mov(arg1, arg2) {
     }
 }
 
+function getMemory(address) {
+    if (memory[address] == undefined) {
+        memory[address] = "00";
+    }
+    return memory[address];
+}
+
+function calcMemAddress(param) {
+    param = param.slice(1,-1);
+    let regs = param.split("+");
+
+    let sum = 0;
+
+    for (let reg of regs) {
+        if (reg == "bx" || reg == "bp" || reg == "si" || reg == "di" || reg == "disp") {
+            sum += parseInt(registers[reg].value, 16);
+        } else {
+            return reg + " can't be used to adress memory";
+        }
+    }
+
+    return sum.toString(16).padStart(4, '0');
+}
+
 function setMemory(address, value) {
-    memory[address] = value;
+    // Trim address if too big
+    address = address.substring(address.length - 4);
+
+    // Convert to hex if argument is dec
+    if (value[value.length - 1] != "h" && value[value.length - 1] != "H") {
+        // Argument is dec
+        let onlyNumbers = /[^0-9]+/g;
+        if (onlyNumbers.test(value)) {
+            return "Argument is incorrect value";
+        }
+
+        value = parseInt(value);
+        hexValue = value.toString(16);
+    } else {
+        // Argument is hex
+        hexValue = value.slice(0, -1);
+
+        let onlyHexNumbers = /[^0-9a-fA-F]+/g;
+        if (onlyHexNumbers.test(hexValue)) {
+            return "Argument is incorrect value";
+        }
+    }
+
+    // Pad value with 0s if too short and change to upper case
+    hexValue = hexValue.toUpperCase();
+
+    if (hexValue.length <= 2) {
+        hexValue = hexValue.padStart(2, '0');
+        memory[address] = hexValue;
+    } else if (hexValue.length > 2) {
+        hexValue = hexValue.padStart(4, '0');
+        if (hexValue.length > 4) {
+            hexValue = hexValue.substring(hexValue.length - 4);
+        }
+
+        memory[(parseInt(address, 16) + 1).toString(16).padStart(4, '0')] = hexValue.slice(0, 2);
+        memory[address] = hexValue.substring(2, 4);
+    }
+
     viewMemoryFrom(address);
+    return false;
 }
 
 function setRegister(register, value) {

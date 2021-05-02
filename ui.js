@@ -1,11 +1,19 @@
 // Add event listeners to control fields
 execButton.addEventListener("click", executeButton)
 
-// Add checking if correct hex value in every register input
+// Add checking if correct hex value in every register and memory input
 for (element of allRegInputs) {
     element.addEventListener("input", checkRegInputForErrors);
 }
 
+// Update memory when value is changed manually
+for (element of allMemInputs) {
+    element.addEventListener("input", updateMemoryOnInput);
+}
+
+function updateMemoryOnInput(event) {
+    memory[event.target.parentElement.id] = event.target.value;
+}
 
 
 function checkRegInputForErrors(event) {
@@ -47,7 +55,7 @@ function viewMemoryFrom(startAddress) {
         if (memory[address] == undefined) {
             memory[address] = "00";
         }
-        input.value = memory[address];
+        input.value = memory[address].toUpperCase();
 
         // Change colors
         if (startAddress == address) {
@@ -55,5 +63,10 @@ function viewMemoryFrom(startAddress) {
         } else {
             input.parentElement.classList.remove("lastViewed");
         }
+
+        // Set id of parent to represent address in memory
+        input.parentElement.id = address;
     }
 }
+
+viewMemoryFrom("0000");

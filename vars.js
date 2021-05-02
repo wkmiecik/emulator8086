@@ -25,10 +25,7 @@ var allRegInputs = document.querySelectorAll(".register-input-box,.register-inpu
 
 // Memory
 var memory = {
-    "0000": "a1",
-    "0001": "ff",
-    "fa0f": "aa",
-    "fa30": "69",
+    "0000": "00"
 }
 var allMemInputs = document.querySelectorAll(".memory-input-box");
 
