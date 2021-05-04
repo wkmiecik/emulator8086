@@ -6,13 +6,19 @@ for (element of allRegInputs) {
     element.addEventListener("input", checkRegInputForErrors);
 }
 
-// Update memory when value is changed manually
+// Update memory and stack when value is changed manually
 for (element of allMemInputs) {
     element.addEventListener("input", updateMemoryOnInput);
+}
+for (element of allStackInputs) {
+    element.addEventListener("input", updateStackOnInput);
 }
 
 function updateMemoryOnInput(event) {
     memory[event.target.parentElement.id] = event.target.value;
+}
+function updateStackOnInput(event) {
+    stack[event.target.parentElement.id.substring(1)] = event.target.value;
 }
 
 
@@ -69,4 +75,48 @@ function viewMemoryFrom(startAddress) {
     }
 }
 
+
+function viewStackFrom(startAddress) {
+    startAddress = startAddress.toLowerCase();
+    let part0 = startAddress.slice(0, -1) + '0';
+    let part1 = (parseInt(part0, 16) + 16).toString(16).padStart(4, '0');
+    let part2 = (parseInt(part1, 16) + 16).toString(16).padStart(4, '0');
+    let part3 = (parseInt(part2, 16) + 16).toString(16).padStart(4, '0');
+
+    stackName0.innerHTML = part0;
+    stackName1.innerHTML = part1;
+    stackName2.innerHTML = part2;
+    stackName3.innerHTML = part3;
+
+    for (input of allStackInputs) {
+        let part;
+        let address;
+
+        // Get address of this input
+        if (input.id[2] == "a") part = part0;
+        if (input.id[2] == "b") part = part1;
+        if (input.id[2] == "c") part = part2;
+        if (input.id[2] == "d") part = part3;
+        address = part.slice(0, -1) + input.id[1];
+        address = address.toLowerCase();
+
+        // Update its value
+        if (stack[address] == undefined) {
+            stack[address] = "00";
+        }
+        input.value = stack[address].toUpperCase();
+
+        // Change colors
+        if (startAddress == address) {
+            input.parentElement.classList.add("lastViewed");
+        } else {
+            input.parentElement.classList.remove("lastViewed");
+        }
+
+        // Set id of parent to represent address in memory
+        input.parentElement.id = "s" + address;
+    }
+}
+
 viewMemoryFrom("0000");
+viewStackFrom("0000");

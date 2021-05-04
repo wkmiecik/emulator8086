@@ -35,7 +35,11 @@ var memName3 = document.getElementById("memory-name3");
 
 // Stack
 var stack = {
-    "0000": "00"
+    "0000": "11",
+    "0001": "22",
+    "0002": "33",
+    "002f": "44",
+    "0018": "55"
 }
 var allStackInputs = document.querySelectorAll(".stack-input-box");
 var stackName0 = document.getElementById("stack-name0");
