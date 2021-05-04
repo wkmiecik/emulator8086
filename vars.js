@@ -28,11 +28,20 @@ var memory = {
     "0000": "00"
 }
 var allMemInputs = document.querySelectorAll(".memory-input-box");
-
 var memName0 = document.getElementById("memory-name0");
 var memName1 = document.getElementById("memory-name1");
 var memName2 = document.getElementById("memory-name2");
 var memName3 = document.getElementById("memory-name3");
+
+// Stack
+var stack = {
+    "0000": "00"
+}
+var allStackInputs = document.querySelectorAll(".stack-input-box");
+var stackName0 = document.getElementById("stack-name0");
+var stackName1 = document.getElementById("stack-name1");
+var stackName2 = document.getElementById("stack-name2");
+var stackName3 = document.getElementById("stack-name3");
 
 // Commands
 const inputCommand = document.getElementById("command0");

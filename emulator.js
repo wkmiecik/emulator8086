@@ -45,6 +45,68 @@ function xchg(arg1, arg2) {
     let arg1Size;
     let arg2Size;
 
+
+
+    // Check if arg1 is memory location
+    if (arg1[0] == "[") {
+        let address = calcMemAddress(arg1);
+        if (address.length > 5) return address;
+
+        // Check if register arg2 exist and save its size
+        if ((arg2Size = getRegSize(arg2)) == undefined) {
+            return "Wrong register name: " + arg2;
+        }
+
+        let temp = "";
+        let error = "";
+    
+        temp = getRegValue(arg2);
+    
+        if (arg2Size == 2) {
+            error = setRegister(arg2, getMemory(address) + "h");
+        } else {
+            let value = getMemory((parseInt(address, 16) + 1).toString(16).padStart(4, '0')) + getMemory(address) + "h";
+            error = setRegister(arg2, value);
+        }
+        if (error) return error;
+
+        error = setMemory(address, temp);
+
+        return error;
+    }
+
+    // Check if arg2 is memory location
+    if (arg2[0] == "[") {
+        let address = calcMemAddress(arg2);
+        if (address.length > 5) return address;
+
+        // Check if register arg1 exist and save its size
+        if ((arg1Size = getRegSize(arg1)) == undefined) {
+            return "Wrong register name: " + arg1;
+        }
+
+        let temp = "";
+        let error = "";
+    
+        temp = getRegValue(arg1);
+    
+        if (arg1Size == 2) {
+            error = setRegister(arg1, getMemory(address) + "h");
+        } else {
+            let value = getMemory((parseInt(address, 16) + 1).toString(16).padStart(4, '0')) + getMemory(address) + "h";
+            error = setRegister(arg1, value);
+        }
+        if (error) return error;
+        
+        error = setMemory(address, temp);
+
+        return error;
+    }
+
+
+
+
+
     // Check if register arg1 exist and save its size
     if ((arg1Size = getRegSize(arg1)) == undefined) {
         return "Wrong register name: " + arg1;
