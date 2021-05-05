@@ -1,5 +1,9 @@
 // Add event listeners to control fields
-execButton.addEventListener("click", executeButton)
+execButton.addEventListener("click", executeButton);
+randomButton.addEventListener("click", randomReg);
+resetRegButton.addEventListener("click", resetReg);
+resetDataButton.addEventListener("click", resetData);
+resetStackButton.addEventListener("click", resetStack);
 
 // Add checking if correct hex value in every register and memory input
 for (element of allRegInputs) {
@@ -15,10 +19,11 @@ for (element of allStackInputs) {
 }
 
 function updateMemoryOnInput(event) {
-    memory[event.target.parentElement.id] = event.target.value;
+    memory[event.target.parentElement.id] = event.target.value.toLowerCase();
 }
 function updateStackOnInput(event) {
-    stack[event.target.parentElement.id.substring(1)] = event.target.value;
+    stack[event.target.parentElement.id.substring(1)] = event.target.value.toLowerCase();
+    viewStackFrom(stackViewAddress);
 }
 
 
@@ -106,15 +111,15 @@ function viewStackFrom(startAddress) {
         }
         input.value = stack[address].toUpperCase();
 
+        // Set id of parent to represent address in memory
+        input.parentElement.id = "s" + address;
+
         // Change colors
-        if (startAddress == address) {
+        if (registers["sp"].value.toLowerCase() == address) {
             input.parentElement.classList.add("lastViewed");
         } else {
             input.parentElement.classList.remove("lastViewed");
         }
-
-        // Set id of parent to represent address in memory
-        input.parentElement.id = "s" + address;
     }
 }
 

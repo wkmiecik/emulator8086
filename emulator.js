@@ -36,9 +36,68 @@ function executeCommand(command) {
             arg2 = arguments.split(",")[1];
             return xchg(arg1, arg2);
 
+        case "push":
+            arg1 = arguments;
+            return push(arg1);
+
+        case "pop":
+            arg1 = arguments;
+            return pop(arg1);
+
         default:
             return "wrong instruction";
     }
+}
+
+function pop(arg1) {
+    let arg1size;
+    let value;
+    let error;
+
+    // Check if register arg1 exist and is correct size
+    if ((arg1size = getRegSize(arg1)) == undefined || arg1size < 4) {
+        return "wrong register: " + arg1;
+    }
+
+    // Update stack pointer
+    let newSP = parseInt(registers["sp"].value, 16) - 2;
+    if (newSP < 0) return "stack is empty";
+    error = setRegister("sp", newSP);
+    if (error) return error;
+    viewStackFrom(stackViewAddress);
+
+    // Set register to stack value
+    let SP = registers["sp"].value
+
+    value = getStack((parseInt(SP, 16) + 1).toString(16).padStart(4, '0')) + getStack(SP);
+    value = value.toLowerCase();
+    return setRegister(arg1, value + "h");
+}
+
+function push(arg1) {
+    let arg1size;
+    let value;
+    let error;
+
+    // Check if register arg1 exist and save its size
+    if ((arg1size = getRegSize(arg1)) == undefined) {
+        value = arg1;
+    } else {
+        if (arg1size < 4) return "wrong register: " + arg1;
+        value = getRegValue(arg1);
+        value = value.toLowerCase();
+    }
+
+    // Update value on stack
+    let SP = registers["sp"].value
+    error = setStack(SP, value)
+    if (error) return error;
+
+    // Update stack pointer
+    let newSP = parseInt(registers["sp"].value, 16) + 2;
+    error = setRegister("sp", newSP);
+    if (error) return error;
+    viewStackFrom(stackViewAddress);
 }
 
 function xchg(arg1, arg2) {
@@ -196,7 +255,16 @@ function mov(arg1, arg2) {
     }
 }
 
+function getStack(address) {
+    address = address.toLowerCase();
+    if (stack[address] == undefined) {
+        stack[address] = "00";
+    }
+    return stack[address];
+}
+
 function getMemory(address) {
+    address = address.toLowerCase();
     if (memory[address] == undefined) {
         memory[address] = "00";
     }
@@ -223,6 +291,7 @@ function calcMemAddress(param) {
 function setMemory(address, value) {
     // Trim address if too big
     address = address.substring(address.length - 4);
+    address = address.toLowerCase();
 
     // Convert to hex if argument is dec
     if (value[value.length - 1] != "h" && value[value.length - 1] != "H") {
@@ -261,6 +330,50 @@ function setMemory(address, value) {
     }
 
     viewMemoryFrom(address);
+    return false;
+}
+
+function setStack(address, value) {
+    // Trim address if too big
+    address = address.substring(address.length - 4);
+    address = address.toLowerCase();
+
+    // Convert to hex if argument is dec
+    if (value[value.length - 1] != "h" && value[value.length - 1] != "H") {
+        // Argument is dec
+        let onlyNumbers = /[^0-9]+/g;
+        if (onlyNumbers.test(value)) {
+            return "Argument is incorrect value";
+        }
+
+        value = parseInt(value);
+        hexValue = value.toString(16);
+    } else {
+        // Argument is hex
+        hexValue = value.slice(0, -1);
+
+        let onlyHexNumbers = /[^0-9a-fA-F]+/g;
+        if (onlyHexNumbers.test(hexValue)) {
+            return "Argument is incorrect value";
+        }
+    }
+
+    // Pad value with 0s if too short and change to upper case
+    hexValue = hexValue.toUpperCase();
+
+    if (hexValue.length <= 2) {
+        hexValue = hexValue.padStart(2, '0');
+        stack[address] = hexValue;
+    } else if (hexValue.length > 2) {
+        hexValue = hexValue.padStart(4, '0');
+        if (hexValue.length > 4) {
+            hexValue = hexValue.substring(hexValue.length - 4);
+        }
+
+        stack[(parseInt(address, 16) + 1).toString(16).padStart(4, '0')] = hexValue.slice(0, 2);
+        stack[address] = hexValue.substring(2, 4);
+    }
+
     return false;
 }
 
@@ -351,5 +464,48 @@ function getRegValue(register) {
 }
 
 
-// Start
-setRegister("dx", "100ch");
+
+
+function randomReg() {
+    let rand
+
+    for (let reg in registers) {
+        if (reg != "sp" && reg[1] != "h" && reg[1] != "l") {
+            rand = getRandomInt(0, 65535);
+            setRegister(reg, rand);
+        }
+    }
+}
+
+function resetReg() {
+    for (let reg in registers) {
+        if (reg != "sp" && reg[1] != "h" && reg[1] != "l") {
+            setRegister(reg, 0);
+        }
+    }
+}
+
+function resetData() {
+    for (let entry in memory) {
+        memory[entry] = "00";
+    }
+    viewMemoryFrom("0000");
+}
+
+function resetStack() {
+    for (let entry in stack) {
+        stack[entry] = "00";
+    }
+    setRegister("sp", 0);
+    stackViewAddress = "0000";
+    viewStackFrom(stackViewAddress);
+}
+
+
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+

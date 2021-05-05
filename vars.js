@@ -35,20 +35,21 @@ var memName3 = document.getElementById("memory-name3");
 
 // Stack
 var stack = {
-    "0000": "11",
-    "0001": "22",
-    "0002": "33",
-    "002f": "44",
-    "0018": "55"
+    "0000": "00"
 }
 var allStackInputs = document.querySelectorAll(".stack-input-box");
 var stackName0 = document.getElementById("stack-name0");
 var stackName1 = document.getElementById("stack-name1");
 var stackName2 = document.getElementById("stack-name2");
 var stackName3 = document.getElementById("stack-name3");
+var stackViewAddress = "0000";
 
 // Commands
 const inputCommand = document.getElementById("command0");
 
 // Control elements
 const execButton = document.getElementById("execButton");
+const randomButton = document.getElementById("randomButton");
+const resetRegButton = document.getElementById("resetRegButton");
+const resetDataButton = document.getElementById("resetDataButton");
+const resetStackButton = document.getElementById("resetStackButton");

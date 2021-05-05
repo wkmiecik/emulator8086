@@ -158,15 +158,15 @@ body {
 
 #controls {
     display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 20px repeat(3, 50px);
+    grid-template-columns: auto auto;
+    grid-template-rows: 20px repeat(4, 50px);
     gap: 20px;
 
     justify-items: center;
 }
 
 #controls > header {
-    grid-column: 1 / 2;
+    grid-column: 1 / -1;
     grid-row: 1;
 
     display: flex;
@@ -184,17 +184,33 @@ body {
 }
 
 #controls > .control-button {
-    grid-column: 1 / 2;
-
     display: flex;
     justify-content: center;
     align-items: center;
 
     border-radius: 5px;
     border: 3px solid rgb(43, 43, 43);
-    width: 50%;
+    width: 140px;
 
     background-color: rgb(223, 223, 223);
+    font-size: 13px;
+
+    user-select: none;
+}
+
+#execButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    grid-column: 1 / -1;
+
+    border-radius: 5px;
+    border: 3px solid rgb(43, 43, 43);
+    width: 309px;
+
+    background-color: rgb(223, 223, 223);
+    font-size: 13px;
 
     user-select: none;
 }
