@@ -7,7 +7,7 @@ body {
 }
 
 .container > header {
-    grid-column: 1 / 4;
+    grid-column: 1 / -1;
     grid-row: 1;
 
     display: flex;
@@ -41,7 +41,7 @@ body {
 .container {
     display: grid;
     grid-template-columns: 0.6fr 1fr 1fr;
-    grid-template-rows: 70px 318px 200px 200px;
+    grid-template-rows: 70px 318px 180px 180px;
     gap: 7px;
 }
 
@@ -105,13 +105,13 @@ body {
     width: 40px;
 }
 
-.wrong {
-    background-color: rgba(233, 143, 143, 0.521);
-}
+
 .lastViewed {
     background-color: rgba(143, 233, 170, 0.521);
 }
-
+.wrong {
+    background-color: rgba(233, 143, 143, 0.521);
+}
 
 
 
@@ -214,6 +214,9 @@ body {
 
     user-select: none;
 }
+#execButton:active {
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+}
 
 #controls > .control-button:active {
     box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
@@ -267,4 +270,12 @@ body {
     border: 2px solid rgb(79,185,227);
     width: 100%;
     box-sizing: border-box;
+}
+
+#stackViewAddress {
+    text-decoration: underline;
+}
+
+#memoryViewAddress {
+    text-decoration: underline;
 }

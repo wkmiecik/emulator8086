@@ -32,6 +32,8 @@ var memName0 = document.getElementById("memory-name0");
 var memName1 = document.getElementById("memory-name1");
 var memName2 = document.getElementById("memory-name2");
 var memName3 = document.getElementById("memory-name3");
+var memoryViewAddress = "0000";
+var memoryViewAddressInput = document.getElementById("memoryViewAddress");
 
 // Stack
 var stack = {
@@ -43,6 +45,7 @@ var stackName1 = document.getElementById("stack-name1");
 var stackName2 = document.getElementById("stack-name2");
 var stackName3 = document.getElementById("stack-name3");
 var stackViewAddress = "0000";
+var stackViewAddressInput = document.getElementById("stackViewAddress");
 
 // Commands
 const inputCommand = document.getElementById("command0");

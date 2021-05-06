@@ -1,4 +1,30 @@
-// Add event listeners to control fields
+// Event listeners for mem and stack view addresses
+stackViewAddressInput.addEventListener("input", (event) => {
+    let onlyHexNumbers = /[^0-9a-fA-F]+/g;
+    let address = event.target.value.padStart(4,"0");
+
+    if (onlyHexNumbers.test(address)) {
+        event.target.classList.add("wrong");
+    } else {
+        stackViewAddress = address
+        viewStackFrom(stackViewAddress);
+        event.target.classList.remove("wrong");
+    }
+});
+memoryViewAddressInput.addEventListener("input", (event) => {
+    let onlyHexNumbers = /[^0-9a-fA-F]+/g;
+    let address = event.target.value.padStart(4,"0");
+
+    if (onlyHexNumbers.test(address)) {
+        event.target.classList.add("wrong");
+    } else {
+        memoryViewAddress = address
+        viewMemoryFrom(memoryViewAddress);
+        event.target.classList.remove("wrong");
+    }
+});
+
+// Event listeners for control fields
 execButton.addEventListener("click", executeButton);
 randomButton.addEventListener("click", randomReg);
 resetRegButton.addEventListener("click", resetReg);
@@ -39,16 +65,18 @@ function checkRegInputForErrors(event) {
 
 
 function viewMemoryFrom(startAddress) {
+    memoryViewAddress = startAddress;
+    memoryViewAddressInput.value = startAddress.toUpperCase();
     startAddress = startAddress.toLowerCase();
     let part0 = startAddress.slice(0, -1) + '0';
     let part1 = (parseInt(part0, 16) + 16).toString(16).padStart(4, '0');
     let part2 = (parseInt(part1, 16) + 16).toString(16).padStart(4, '0');
     let part3 = (parseInt(part2, 16) + 16).toString(16).padStart(4, '0');
 
-    memName0.innerHTML = part0;
-    memName1.innerHTML = part1;
-    memName2.innerHTML = part2;
-    memName3.innerHTML = part3;
+    memName0.innerHTML = (part0.length > 4) ? "" : part0;
+    memName1.innerHTML = (part1.length > 4) ? "" : part1;
+    memName2.innerHTML = (part2.length > 4) ? "" : part2;
+    memName3.innerHTML = (part3.length > 4) ? "" : part3;
 
     for (input of allMemInputs) {
         let part;
@@ -61,6 +89,13 @@ function viewMemoryFrom(startAddress) {
         if (input.id[1] == "d") part = part3;
         address = part.slice(0, -1) + input.id[0];
         address = address.toLowerCase();
+
+        if (address.length > 4) {
+            input.parentElement.style.display = "none";
+            input.value = "";
+            continue;
+        }
+        input.parentElement.style.display = "block";
 
         // Update its value
         if (memory[address] == undefined) {
@@ -88,10 +123,10 @@ function viewStackFrom(startAddress) {
     let part2 = (parseInt(part1, 16) + 16).toString(16).padStart(4, '0');
     let part3 = (parseInt(part2, 16) + 16).toString(16).padStart(4, '0');
 
-    stackName0.innerHTML = part0;
-    stackName1.innerHTML = part1;
-    stackName2.innerHTML = part2;
-    stackName3.innerHTML = part3;
+    stackName0.innerHTML = (part0.length > 4) ? "" : part0;
+    stackName1.innerHTML = (part1.length > 4) ? "" : part1;
+    stackName2.innerHTML = (part2.length > 4) ? "" : part2;
+    stackName3.innerHTML = (part3.length > 4) ? "" : part3;
 
     for (input of allStackInputs) {
         let part;
@@ -104,6 +139,13 @@ function viewStackFrom(startAddress) {
         if (input.id[2] == "d") part = part3;
         address = part.slice(0, -1) + input.id[1];
         address = address.toLowerCase();
+
+        if (address.length > 4) {
+            input.parentElement.style.display = "none";
+            input.value = "";
+            continue;
+        }
+        input.parentElement.style.display = "block";
 
         // Update its value
         if (stack[address] == undefined) {

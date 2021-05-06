@@ -98,7 +98,11 @@
         </div>
 
         <div id="memory">
-            <header>Memory data segment (64kb)</header>
+            <header>
+                Memory data segment (64kb) viewed from address
+                <input type="text" class="register-input-box2" id="memoryViewAddress" minlength="4" maxlength="4"  autocomplete="off" spellcheck="false" value="0000">
+                h
+            </header>
 
 
             <div></div>
@@ -327,14 +331,14 @@
                 <input type="text" class="register-input-box memory-input-box" id="Fd" minlength="2" maxlength="2"  autocomplete="off" spellcheck="false" value="00">
             </div>
         </div>
-
-
-
-
         
 
         <div id="stack">
-            <header>Memory stack segment (64kb)</header>
+            <header>
+                Memory stack segment (64kb) viewed from address
+                <input type="text" class="register-input-box2" id="stackViewAddress" minlength="4" maxlength="4"  autocomplete="off" spellcheck="false" value="0000">
+                h
+            </header>
 
             <div></div>
             <div class="register-name">0</div>
