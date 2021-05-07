@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.1">
     <title>Emulator 8086</title>
 
     <link rel="stylesheet" href="style.css">
@@ -79,18 +79,35 @@
         </div>
 
         <div id="commands">
-            <header>Commands</header>
-            <div></div>
+            <header>Command field</header>
+            
 
             <div class="command-field">
                 <input type="text" class="command-field-input-box" id="command0" maxlength="64" size="30%" autocomplete="off" spellcheck="false">
             </div>
+
+            <header>Example commands</header>
+
+            <div class="separator"></div>
+
+            <div class="command-button" id="button1">MOV AX, BX</div>
+            <div class="command-button" id="button2">MOV [BP+11h], AX</div>
+            <div class="command-button" id="button3">PUSH AX</div>
+            <div class="command-button" id="button4">MOV BP, 1234</div>
+            <div class="command-button" id="button5">MOV BX, [SI+BP+DISP]</div>
+            <div class="command-button" id="button6">POP BX</div>
+            <div class="command-button" id="button7">XCHG AX, DX</div>
+            <div class="command-button" id="button8">XCHG DH, [DI]</div>
+            <div class="command-button" id="button9">PUSH 1234h</div>
+            <div class="command-button" id="button10">XCHG BP, DI</div>
+            <div class="command-button" id="button11">XCHG [BP], CX</div>
+            <div class="command-button" id="button12">POP SI</div>
         </div>
 
         <div id="controls">
             <header>Controls</header>
 
-            <div id="execButton">Execute</div>
+            <div id="execButton">Execute command from command field</div>
             <div class="control-button" id="randomButton">Random</div>
             <div class="control-button" id="resetRegButton">Reset registers</div>
             <div class="control-button" id="resetDataButton">Reset data segment</div>
@@ -99,7 +116,7 @@
 
         <div id="memory">
             <header>
-                Memory data segment (64kb) viewed from address
+                Data segment (64KB), viewed starting from address:
                 <input type="text" class="register-input-box2" id="memoryViewAddress" minlength="4" maxlength="4"  autocomplete="off" spellcheck="false" value="0000">
                 h
             </header>
@@ -335,7 +352,7 @@
 
         <div id="stack">
             <header>
-                Memory stack segment (64kb) viewed from address
+                Stack segment (64KB), viewed starting from address:
                 <input type="text" class="register-input-box2" id="stackViewAddress" minlength="4" maxlength="4"  autocomplete="off" spellcheck="false" value="0000">
                 h
             </header>

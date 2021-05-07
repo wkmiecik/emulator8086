@@ -1,3 +1,14 @@
+// Event listeners for all command buttons
+for (element of commandButtons) {
+    element.addEventListener("click", (event) => {
+        error = executeCommand(event.target.innerHTML);
+        if (error) {
+            //console.error("error: " + error);
+            alert("error: " + error);
+        }
+    });
+}
+
 // Event listeners for mem and stack view addresses
 stackViewAddressInput.addEventListener("input", (event) => {
     let onlyHexNumbers = /[^0-9a-fA-F]+/g;
@@ -65,8 +76,6 @@ function checkRegInputForErrors(event) {
 
 
 function viewMemoryFrom(startAddress) {
-    memoryViewAddress = startAddress;
-    memoryViewAddressInput.value = startAddress.toUpperCase();
     startAddress = startAddress.toLowerCase();
     let part0 = startAddress.slice(0, -1) + '0';
     let part1 = (parseInt(part0, 16) + 16).toString(16).padStart(4, '0');

@@ -1,19 +1,22 @@
 function executeButton(event) {
     if (document.querySelectorAll(".wrong").length > 0) {
-        console.error("error: One or more registers have incorrect value");
+        //console.error("error: One or more registers have incorrect value");
+        alert("error: One or more registers have incorrect value");
         return;
     }
 
-    let command = inputCommand.value;
+    let command = inputCommand.value
     if (command == "") return;
 
     error = executeCommand(command);
     if (error) {
-        console.error("error: " + error);
+        //console.error("error: " + error);
+        alert("error: " + error);
     }
 }
 
 function executeCommand(command) {
+    command = command.toLowerCase();
     let instruction = command.split(/(?<=^\S+)\s/)[0];
     let arguments = command.split(/(?<=^\S+)\s/)[1];
     if (!arguments) {
@@ -272,6 +275,8 @@ function getMemory(address) {
 }
 
 function calcMemAddress(param) {
+    let onlyHexNumbers = /[^0-9a-fA-F]+/g;
+    let onlyNumbers = /[^0-9]+/g;
     param = param.slice(1,-1);
     let regs = param.split("+");
 
@@ -281,7 +286,22 @@ function calcMemAddress(param) {
         if (reg == "bx" || reg == "bp" || reg == "si" || reg == "di" || reg == "disp") {
             sum += parseInt(registers[reg].value, 16);
         } else {
-            return reg + " can't be used to adress memory";
+            if (reg[reg.length - 1] != "h" && reg[reg.length - 1] != "H") {
+                if (onlyNumbers.test(reg)) {
+                    return reg + " can't be used to adress memory";
+                } else {
+                    sum += parseInt(reg);
+                    continue;
+                }
+            } else {
+                reg = reg.slice(0, -1);
+                if (onlyHexNumbers.test(reg)) {
+                    return reg + " can't be used to adress memory";
+                } else {
+                    sum += parseInt(reg, 16);
+                    continue;
+                }
+            }
         }
     }
 
@@ -329,6 +349,8 @@ function setMemory(address, value) {
         memory[address] = hexValue.substring(2, 4);
     }
 
+    memoryViewAddress = address;
+    memoryViewAddressInput.value = address.toUpperCase();
     viewMemoryFrom(address);
     return false;
 }
@@ -489,6 +511,8 @@ function resetData() {
     for (let entry in memory) {
         memory[entry] = "00";
     }
+    memoryViewAddress = "0000";
+    memoryViewAddressInput.value = "0000";
     viewMemoryFrom("0000");
 }
 
